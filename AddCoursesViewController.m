@@ -54,7 +54,7 @@ typedef enum{
     AddCoursesViewControllerSectionUser     = 2
 }AddCoursesViewControllerSectionType;
 
-@interface AddCoursesViewController ()<UITextFieldDelegate,ManagerTableViewDelegate>
+@interface AddCoursesViewController ()<ManagerTableViewDelegate>
 
 @property(nonatomic,strong) NSDictionary *atributeNameDictionary;
 @property(nonatomic,strong) NSDictionary *atributeNameCourseDictionary;
@@ -194,6 +194,33 @@ typedef enum{
         
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+-(void)upAtributeDictionary{
+    self.atributeNameCourseDictionary = nil;
+    NSString *fullName = nil;
+    if(self.course.teachers)
+    {
+        fullName = [NSString stringWithFormat:@"%@ %@",self.course.teachers.lastName,self.course.teachers.firstName];
+    }
+    self.atributeNameCourseDictionary  = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                          self.course.title,kTitleAtributeNameDictionary,
+                                          self.course.discipline,kDisciplineAtributeNameDictionary,
+                                          self.course.sphere,kSphereAtributeNameDictionary,
+                                          fullName,kTeacherAtributeNameDictionary,nil];
+}
+
+
+-(void)presentManagerControllerWithEntity:(NSString*)antityName{
+    
+    ManagerTableViewController *managerTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ManagerTableViewController"];
+    
+    managerTVC.dataObj = self.course;
+    managerTVC.entityName = antityName;
+    managerTVC.delegate = self;
+    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:managerTVC];
+    
+    [self presentViewController:navC animated:YES completion:nil];
 }
 
 
@@ -429,38 +456,10 @@ typedef enum{
     return count + 1;
 }
 
-#pragma  mark - UITextFieldDelegate
-//
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-//    BOOL beginEditing  = YES;
-//    if(textField.tag == AddCourseViewControllerTeacherAtributeNameDictionary)
-//    {
-//        beginEditing =  NO;
-//    }
-//    return beginEditing;
-//}
-//
-//- (void)textFieldDidEndEditing:(UITextField *)textField{
-//    [self saveValueFromControl:textField];
-//}
-//
-//- (BOOL)textFieldShouldClear:(UITextField *)textField{
-//    [self saveValueFromControl:textField];
-//    return YES;
-//}
-//- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-//    [self saveValueFromControl:textField];
-//    return YES;
-//}
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-//    [self saveValueFromControl:textField];
-//    return YES;
-//}
 
 -(void)saveValueFromControl:(UITextField*)textField{
     NSInteger idebtifierAtributeText = textField.tag;
     NSString *text = textField.text;
-    textField.delegate = self;
     if(idebtifierAtributeText == AddCourseViewControllerTitleAtributeNameDictionary)
     {
         self.titleCourse = text;
@@ -515,32 +514,5 @@ typedef enum{
     [self.tableView reloadData];
 }
 
--(void)presentManagerControllerWithEntity:(NSString*)antityName{
-    
-    ManagerTableViewController *managerTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ManagerTableViewController"];
-    
-    managerTVC.dataObj = self.course;
-    managerTVC.entityName = antityName;
-    managerTVC.delegate = self;
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:managerTVC];
-    
-    [self presentViewController:navC animated:YES completion:nil];
-}
-
-
-#pragma mark - update
--(void)upAtributeDictionary{
-    self.atributeNameCourseDictionary = nil;
-    NSString *fullName = nil;
-    if(self.course.teachers)
-    {
-        fullName = [NSString stringWithFormat:@"%@ %@",self.course.teachers.lastName,self.course.teachers.firstName];
-    }
-   self.atributeNameCourseDictionary  = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                         self.course.title,kTitleAtributeNameDictionary,
-                                         self.course.discipline,kDisciplineAtributeNameDictionary,
-                                         self.course.sphere,kSphereAtributeNameDictionary,
-                                         fullName,kTeacherAtributeNameDictionary,nil];
-}
 
 @end

@@ -74,7 +74,7 @@
                                                              initWithFetchRequest:fetchRequest
                                                              managedObjectContext:self.managedObjectContext
                                                              sectionNameKeyPath:nil
-                                                             cacheName:@"User"];
+                                                             cacheName:@"Course"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

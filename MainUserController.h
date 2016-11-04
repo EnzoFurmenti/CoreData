@@ -13,7 +13,6 @@
 
 @interface MainUserController : MainTableViewController
 
-//@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 
 @end

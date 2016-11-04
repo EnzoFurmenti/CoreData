@@ -175,32 +175,6 @@
                                     <outlet property="atributeText" destination="6lv-cg-9eG" id="Ozc-Qp-gcd"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCourseCell" id="mnz-uO-ipg" customClass="AddUserCell">
-                                <rect key="frame" x="0.0" y="72" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mnz-uO-ipg" id="CBR-mh-YPD">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add new Course" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c70-Ov-CXI">
-                                            <rect key="frame" x="8" y="12" width="584" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="c70-Ov-CXI" firstAttribute="centerX" secondItem="CBR-mh-YPD" secondAttribute="centerX" id="2yT-v1-gsI"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="c70-Ov-CXI" secondAttribute="bottom" constant="2.5" id="JdV-ak-9sk"/>
-                                        <constraint firstItem="c70-Ov-CXI" firstAttribute="top" secondItem="CBR-mh-YPD" secondAttribute="topMargin" constant="4" id="KLB-qO-bmI"/>
-                                        <constraint firstItem="c70-Ov-CXI" firstAttribute="centerY" secondItem="CBR-mh-YPD" secondAttribute="centerY" id="YOd-qp-dNm"/>
-                                        <constraint firstAttribute="leadingMargin" secondItem="c70-Ov-CXI" secondAttribute="leading" id="wS2-LZ-3rs"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="title" destination="c70-Ov-CXI" id="n65-xd-FQk"/>
-                                </connections>
-                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="sDr-2T-Ye1" id="bxU-Hk-xn9"/>

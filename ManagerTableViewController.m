@@ -10,7 +10,7 @@
 #import "Course.h"
 
 #import "DataManager.h"
-//#import "User.h"
+
 #import "User+CoreDataProperties.h"
 #import "Teacher+CoreDataProperties.h"
 #import "Course+CoreDataProperties.h"

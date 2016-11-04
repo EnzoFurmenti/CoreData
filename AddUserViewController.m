@@ -159,6 +159,13 @@ typedef enum{
     }
 }
 
+-(void)updateAtributeNameUserDictionary{
+    self.atributeNameUserDictionary = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                       self.user.firstName,kFirstNameAtributeNameDictionary,
+                                       self.user.lastName,kLastNameAtributeNameDictionary,
+                                       self.user.email,kEmailAtributeNameDictionary,nil];
+}
+
 #pragma  mark - row metods
 
 -(NSInteger)getRow:(NSInteger)row{
@@ -352,16 +359,5 @@ typedef enum{
     [self.tableView reloadData];
 }
 
-
-
-
-#pragma mark - metods
-
--(void)updateAtributeNameUserDictionary{
-    self.atributeNameUserDictionary = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                       self.user.firstName,kFirstNameAtributeNameDictionary,
-                                       self.user.lastName,kLastNameAtributeNameDictionary,
-                                       self.user.email,kEmailAtributeNameDictionary,nil];
-}
 
 @end

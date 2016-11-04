@@ -8,11 +8,13 @@
 
 #import "AddTeacherViewController.h"
 #import "AddCoursesViewController.h"
-#import "Teacher.h"
-#import "Teacher+CoreDataProperties.h"
 #import "ManagerTableViewController.h"
 
+
 #import "DataManager.h"
+#import "Teacher.h"
+#import "Teacher+CoreDataProperties.h"
+
 #import "Course+CoreDataProperties.h"
 
 #import "AddUserCell.h"
@@ -38,7 +40,7 @@ typedef enum{
 
 
 
-@interface AddTeacherViewController ()<UITextFieldDelegate,ManagerTableViewDelegate>
+@interface AddTeacherViewController ()<UITextFieldDelegate>
 
 @property(nonatomic,strong) NSDictionary *atributeNameDictionary;
 @property(nonatomic,strong) NSDictionary *atributeNameTeacherDictionary;
@@ -167,7 +169,7 @@ typedef enum{
     {
         rowCount = 2;
     }else if(section == AddTeacherViewControllerCourseSection){
-        rowCount = [self getNumbersOfRow:[self.arrayCourses count]];
+        rowCount = [self.arrayCourses count];
     }
     return rowCount;
 }
@@ -190,7 +192,7 @@ typedef enum{
     
     static NSString *identifierUserCell = @"UserCell";
     static NSString *identifierCourseCell = @"CourseCell";
-    static NSString *identifierAddCourseCell = @"AddCourseCell";
+ //   static NSString *identifierAddCourseCell = @"AddCourseCell";
     if(indexPath.section == AddTeacherViewControllerGeneralSection)
     {
         UserCell *teacherCell = [tableView dequeueReusableCellWithIdentifier:identifierUserCell];
@@ -198,20 +200,20 @@ typedef enum{
         return teacherCell;
         
     }else if(indexPath.section == AddTeacherViewControllerCourseSection){
-        if(indexPath.row == 0)
-        {
-            AddUserCell *addUserCell = [tableView dequeueReusableCellWithIdentifier:identifierAddCourseCell];
-            return addUserCell;
-        }else{
+//        if(indexPath.row == 0)
+//        {
+//            AddUserCell *addUserCell = [tableView dequeueReusableCellWithIdentifier:identifierAddCourseCell];
+//            return addUserCell;
+//        }else{
             UITableViewCell *courseCell = [tableView dequeueReusableCellWithIdentifier:identifierCourseCell];
             if(!courseCell)
             {
                 courseCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifierCourseCell];
             }
-            courseCell.textLabel.text = [(Course*)[self.arrayCourses objectAtIndex:[self getRow:indexPath.row]] title];
+            courseCell.textLabel.text = [(Course*)[self.arrayCourses objectAtIndex:indexPath.row] title];
             courseCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return courseCell;
-        }
+        //}
     }
     return  nil;
 }
@@ -221,24 +223,12 @@ typedef enum{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if(indexPath.section == AddTeacherViewControllerCourseSection)
     {
-        if(indexPath.row == 0)
-        {
-            ManagerTableViewController *managerTVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ManagerTableViewController"];
-            
-            managerTVC.dataObj = self.teacher;
-            managerTVC.entityName = @"Course";
-            managerTVC.delegate = self;
-            UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:managerTVC];
-            
-            [self presentViewController:navC animated:YES completion:nil];
-        }else{
-            Course *course = [self.arrayCourses objectAtIndex:[self getRow:indexPath.row]];
-            
-            AddCoursesViewController *addCoursesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddCoursesViewController"];
-            addCoursesVC.course = course;
-            
-            [self.navigationController pushViewController:addCoursesVC animated:YES];
-        }
+        Course *course = [self.arrayCourses objectAtIndex:indexPath.row];
+        
+        AddCoursesViewController *addCoursesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddCoursesViewController"];
+        addCoursesVC.course = course;
+        
+        [self.navigationController pushViewController:addCoursesVC animated:YES];
     }
 }
 
@@ -269,19 +259,6 @@ typedef enum{
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
-}
-
-#pragma mark - UsersTableViewDelegate
-
--(void)upDataArray:(NSArray *)array witEntityName:(NSString*)entityName{
-    
-    if([entityName isEqualToString:@"Course"])
-    {
-        self.arrayCourses = array;
-        [self.teacher setCourses:[NSSet setWithArray:self.arrayCourses]];
-        
-    }
-    [self.tableView reloadData];
 }
 
 
@@ -351,8 +328,6 @@ typedef enum{
     
 }
 
-
-#pragma mark - update
 -(void)upAtributeDictionary{
     self.atributeNameTeacherDictionary = [[NSDictionary alloc]initWithObjectsAndKeys:
                                           self.teacher.firstName,kFirstNameAtributeNameDictionary,
