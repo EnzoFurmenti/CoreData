@@ -17,4 +17,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
+-(void)actionAdd:(UIBarButtonItem*)barButton;
+-(void)actionEdit:(UIBarButtonItem*)barButton;
+
 @end

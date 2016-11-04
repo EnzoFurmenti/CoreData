@@ -19,15 +19,17 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-//    UIBarButtonItem *addBurButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAdd:)];
-//    
-//    self.navigationItem.rightBarButtonItem = addBurButton;
-//    
-//    UIBarButtonItem *editBarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(actionEdit:)];
-//    self.navigationItem.leftBarButtonItem = editBarButton;
+    
+    
+    UIBarButtonItem *actionEditBarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(actionEdit:)];
+    
+    self.navigationItem.leftBarButtonItem = actionEditBarButton;
+    
+    UIBarButtonItem *actionAddBarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAdd:)];
+    self.navigationItem.rightBarButtonItem = actionAddBarButton;
 }
 
- 
+
 #pragma mark - lazy initialization
 -(NSManagedObjectContext*)managedObjectContext{
     
@@ -36,6 +38,22 @@
         _managedObjectContext = [[DataManager sharedDataManager] managedObjectContext];
     }
     return _managedObjectContext;
+}
+#pragma mark - action
+-(void)actionAdd:(UIBarButtonItem*)barButton{
+    
+}
+
+-(void)actionEdit:(UIBarButtonItem*)barButton{
+    UIBarButtonSystemItem item = self.tableView.editing ? UIBarButtonSystemItemEdit : UIBarButtonSystemItemDone;
+    
+    UIBarButtonItem *rightItem = self.tableView.editing ? [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(actionAdd:)] : nil;
+    [self.navigationItem setRightBarButtonItem:rightItem];
+    
+    [self.tableView setEditing:self.tableView.editing ? NO : YES animated:YES];
+    
+    UIBarButtonItem *editBarButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:item target:self action:@selector(actionEdit:)];
+    [self.navigationItem setLeftBarButtonItem:editBarButton animated:YES];
 }
 
 #pragma mark - UITableViewDelegate

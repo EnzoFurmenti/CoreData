@@ -1,5 +1,5 @@
 //
-//  User+CoreDataProperties.m
+//  Course+CoreDataProperties.m
 //  CoreData
 //
 //  Created by EnzoF on 01.11.16.
@@ -9,13 +9,14 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "User+CoreDataProperties.h"
+#import "Course+CoreDataProperties.h"
 
-@implementation User (CoreDataProperties)
+@implementation Course (CoreDataProperties)
 
-@dynamic email;
-@dynamic firstName;
-@dynamic lastName;
-@dynamic courses;
+@dynamic discipline;
+@dynamic sphere;
+@dynamic title;
+@dynamic teachers;
+@dynamic users;
 
 @end

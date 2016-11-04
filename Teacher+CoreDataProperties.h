@@ -1,5 +1,5 @@
 //
-//  User+CoreDataProperties.h
+//  Teacher+CoreDataProperties.h
 //  CoreData
 //
 //  Created by EnzoF on 01.11.16.
@@ -9,20 +9,19 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "User.h"
+#import "Teacher.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface User (CoreDataProperties)
+@interface Teacher (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSString *email;
 @property (nullable, nonatomic, retain) NSString *firstName;
 @property (nullable, nonatomic, retain) NSString *lastName;
 @property (nullable, nonatomic, retain) NSSet<Course *> *courses;
 
 @end
 
-@interface User (CoreDataGeneratedAccessors)
+@interface Teacher (CoreDataGeneratedAccessors)
 
 - (void)addCoursesObject:(Course *)value;
 - (void)removeCoursesObject:(Course *)value;

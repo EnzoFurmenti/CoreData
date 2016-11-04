@@ -1,31 +1,28 @@
 //
-//  MainUserController.m
+//  CourseTableViewController.m
 //  CoreData
 //
-//  Created by EnzoF on 29.10.16.
+//  Created by EnzoF on 01.11.16.
 //  Copyright © 2016 EnzoF. All rights reserved.
 //
 
-#import "MainUserController.h"
-#import "AddUserViewController.h"
-#import "DataManager.h"
-#import "User.h"
-#import "User+CoreDataProperties.h"
+#import "CourseTableViewController.h"
+#import "AddCoursesViewController.h"
+#import "Course.h"
+#import "Teacher+CoreDataProperties.h"
 
-@interface MainUserController ()
+@interface CourseTableViewController ()
 
-@property (nonatomic,strong) AddUserViewController *addUserVC;
 
 @end
 
-@implementation MainUserController
+@implementation CourseTableViewController
 
 @synthesize fetchedResultsController = _fetchedResultsController;
 
-
 -(void)viewDidLoad{
     [super viewDidLoad];
-        self.navigationItem.title = @"Users";
+    self.navigationItem.title = @"Courses";
     
 }
 
@@ -33,28 +30,22 @@
 #pragma mark - action
 -(void)actionAdd:(UIBarButtonItem*)barButton{
     
-    self.addUserVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddUserViewController"];
+    AddCoursesViewController *addCourseVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddCoursesViewController"];
     
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:self.addUserVC];
-    
-    //addUserTVC.modalPresentationStyle = UIModalPresentationFullScreen;
+      UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:addCourseVC];
     
     [self presentViewController:navC animated:YES completion:nil];
-
 }
-
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+     AddCoursesViewController *addCoursesVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddCoursesViewController"];
     
-    AddUserViewController *addUserVC = [self.storyboard instantiateViewControllerWithIdentifier:@"AddUserViewController"];
-    addUserVC.user = user;
-    
-    UINavigationController *navC = [[UINavigationController alloc]initWithRootViewController:addUserVC];
-    [self presentViewController:navC animated:YES completion:nil];
+    Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    addCoursesVC.course = course;
+    [self.navigationController pushViewController:addCoursesVC animated:YES];
 }
 
 #pragma mark - CoreData
@@ -66,14 +57,14 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     // Edit the entity name as appropriate.
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Course" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
     
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
@@ -82,8 +73,8 @@
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
                                                              managedObjectContext:self.managedObjectContext
-                                                               sectionNameKeyPath:nil
-                                                                        cacheName:@"User"];
+                                                             sectionNameKeyPath:nil
+                                                             cacheName:@"User"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -102,11 +93,10 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     
-    User *user = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = user.lastName;
-    cell.detailTextLabel.text = user.firstName;
+    Course *course = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = course.title;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@",course.teachers.lastName,course.teachers.firstName];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
-
-
 
 @end

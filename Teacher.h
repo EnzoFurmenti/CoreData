@@ -1,5 +1,5 @@
 //
-//  User.h
+//  Teacher.h
 //  CoreData
 //
 //  Created by EnzoF on 01.11.16.
@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface User : NSManagedObject
+@interface Teacher : NSManagedObject
 
 // Insert code here to declare functionality of your managed object subclass
 
@@ -21,4 +21,4 @@ NS_ASSUME_NONNULL_BEGIN
 
 NS_ASSUME_NONNULL_END
 
-#import "User+CoreDataProperties.h"
+#import "Teacher+CoreDataProperties.h"

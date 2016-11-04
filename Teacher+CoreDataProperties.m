@@ -1,5 +1,5 @@
 //
-//  User+CoreDataProperties.m
+//  Teacher+CoreDataProperties.m
 //  CoreData
 //
 //  Created by EnzoF on 01.11.16.
@@ -9,11 +9,10 @@
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "User+CoreDataProperties.h"
+#import "Teacher+CoreDataProperties.h"
 
-@implementation User (CoreDataProperties)
+@implementation Teacher (CoreDataProperties)
 
-@dynamic email;
 @dynamic firstName;
 @dynamic lastName;
 @dynamic courses;
